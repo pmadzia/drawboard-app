@@ -1,2 +1,17 @@
-<h1>Boards#index</h1>
-<p>Find me in app/views/boards/index.html.erb</p>
+<main class="container py-5 grow">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-0">Boards</h1>
+      <small class="text-muted">Open a board or start a new one</small>
+    </div>
+    <button class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#new-board">
+      <i class="bi bi-plus-lg me-1"></i> New board
+    </button>
+  </div>
+
+  <div class="row g-4">
+    <%= render partial: "boards/board", collection: @boards %>
+  </div>
+</main>
+
+<%= render "boards/new_modal" %>

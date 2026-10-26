@@ -1,0 +1,9 @@
+<nav class="navbar app-navbar px-4">
+  <%= link_to boards_path, class: "navbar-brand fw-bold d-flex align-items-center gap-2" do %>
+    <i class="bi bi-brush-fill text-brand"></i> Drawboard
+  <% end %>
+
+  <div class="ms-auto d-flex align-items-center gap-2">
+    <%= render_name_badge %>
+  </div>
+</nav>

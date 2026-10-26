@@ -1,0 +1,18 @@
+<div class="modal fade" id="new-board" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <%= form_with url: boards_path, class: "modal-content" do %>
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5">Create a board</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <%= text_field_tag :name, nil, class: "form-control form-control-lg",
+              placeholder: "Board name", maxlength: 60, required: true %>
+      </div>
+      <div class="modal-footer border-0">
+        <%= submit_tag "Create", class: "btn btn-brand" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

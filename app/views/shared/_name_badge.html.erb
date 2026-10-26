@@ -1,0 +1,9 @@
+<span class="user-chip">
+  <i></i><%= name %>
+</span>
+
+<%= button_to session_path, method: :delete,
+      form: { class: "d-inline" },
+      class: "btn-icon", title: "Leave", aria: { label: "Leave" } do %>
+  <i class="bi bi-box-arrow-right"></i>
+<% end %>

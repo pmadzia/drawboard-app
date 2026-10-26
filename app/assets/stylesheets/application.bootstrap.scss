@@ -1,2 +1,68 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+$brand: #6c5ce7;
+
+.text-brand { color: $brand; }
+
+.btn-brand {
+  background: $brand;
+  border-color: $brand;
+  color: #fff;
+  &:hover { background: darken($brand, 8%); color: #fff; }
+}
+
+.hero-card { max-width: 440px; width: 100%; border-radius: 1.25rem; }
+
+.board-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+  &:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.12) !important; }
+}
+
+.board-thumb {
+  height: 140px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; color: $brand;
+  background: repeating-linear-gradient(45deg, #fafafa, #fafafa 10px, #f1f1f7 10px, #f1f1f7 20px);
+}
+
+.entrance {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f3f0ff 0%, #e0f7ff 100%) fixed;
+}
+
+.app-navbar {
+  background: rgba(255, 255, 255, .85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .06), 0 4px 12px rgba(0, 0, 0, .04);
+  min-height: 60px;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  padding: .35rem .9rem;
+  background: #f4f2ff;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #6c757d;
+  transition: background .15s, color .15s;
+  &:hover { background: #f1f1f7; color: $brand; }
+}

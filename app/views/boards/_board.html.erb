@@ -1,0 +1,13 @@
+<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+  <%= link_to board_path(board), class: "text-decoration-none" do %>
+    <div class="card board-card h-100 border-0 shadow-sm">
+      <div class="board-thumb"><i class="bi bi-easel2"></i></div>
+      <div class="card-body">
+        <h2 class="h6 fw-semibold text-dark mb-1"><%= board.name %></h2>
+        <small class="text-muted">
+          by <%= board.creator %> · <%= time_ago_in_words(board.created_at) %> ago
+        </small>
+      </div>
+    </div>
+  <% end %>
+</div>

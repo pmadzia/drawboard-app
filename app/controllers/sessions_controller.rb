@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout "entrance", only: :new
   skip_before_action :require_name, only: %i[new create]
   def new; end
 
