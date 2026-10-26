@@ -1,4 +1,27 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  before_action :require_name
+
+  rescue_from MissingName, with: :redirect_to_entrance
+  rescue_from ActionController::ParameterMissing,
+              ActiveRecord::RecordInvalid, with: :reject_input
+
+  helper_method :fetch_name
+
+  private
+
+  def require_name
+    fetch_name
+  end
+
+  def fetch_name
+    session.fetch(:name) { raise MissingName }
+  end
+
+  def redirect_to_entrance
+    redirect_to root_path
+  end
+
+  def reject_input
+    redirect_back fallback_location: root_path, alert: error.message
+  end
 end
