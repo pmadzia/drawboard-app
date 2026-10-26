@@ -1,0 +1,4 @@
+<div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+  <span><%= shortcut.label %></span>
+  <span><%= safe_join(shortcut.keys.map { |key| tag.kbd(key, class: "key-cap") }, " + ") %></span>
+</div>

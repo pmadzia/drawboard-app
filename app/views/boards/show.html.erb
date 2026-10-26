@@ -1,2 +1,38 @@
-<h1>Boards#show</h1>
-<p>Find me in app/views/boards/show.html.erb</p>
+<div class="workspace" data-controller="board"
+  data-action="keydown@window->board#pressKey keyup@window->board#releaseKey">
+
+  <aside class="tool-panel">
+    <button type="button" class="tool-btn active" title="Pen">
+      <i class="bi bi-pencil-fill"></i>
+    </button>
+    <button type="button" class="tool-btn mt-auto" data-bs-toggle="modal"
+            data-bs-target="#shortcuts" title="Controls">
+      <i class="bi bi-keyboard"></i>
+    </button>
+  </aside>
+
+  <div class="stage" data-board-target="stage">
+    <canvas data-board-target="canvas"></canvas>
+    <div class="board-user">
+      <%= render_name_badge %>
+    </div>
+    <div class="board-title">
+      <%= link_to boards_path, class: "btn-icon", title: "All boards" do %>
+        <i class="bi bi-arrow-left"></i>
+      <% end %>
+      <span class="fw-semibold"><%= @board.name %></span>
+    </div>
+
+    <div class="zoom-controls" title="Ctrl + scroll to zoom, hold Space to pan">
+      <button type="button" class="btn-icon" data-action="board#zoomOut" title="Zoom out">
+        <i class="bi bi-dash-lg"></i>
+      </button>
+      <button type="button" class="zoom-label" data-board-target="zoomLabel"
+              data-action="board#resetView" title="Reset to 100%">100%</button>
+      <button type="button" class="btn-icon" data-action="board#zoomIn" title="Zoom in">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<%= render "boards/shortcuts_modal" %>

@@ -66,3 +66,101 @@ $brand: #6c5ce7;
   transition: background .15s, color .15s;
   &:hover { background: #f1f1f7; color: $brand; }
 }
+
+.board-title,
+.zoom-controls,
+.board-user {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .25rem .5rem;
+  background: rgba(255, 255, 255, .92);
+  border-radius: 999px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+}
+
+.board-title { top: 1rem; left: 1rem; padding-right: 1rem; }
+.board-user  { top: 1rem; right: 1rem; }
+.zoom-controls { bottom: 1rem; right: 1rem; }
+
+.board-user .user-chip { background: transparent; }
+
+.workspace { flex: 1 1 0; min-height: 0; display: flex; }
+
+.tool-panel {
+  width: 64px;
+  padding: .75rem .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, .06);
+  z-index: 6;
+}
+
+.tool-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: .75rem;
+  background: transparent;
+  color: #495057;
+  font-size: 1.1rem;
+  &:hover { background: #f1f1f7; }
+  &.active { background: $brand; color: #fff; }
+}
+
+.bi-keyboard {
+  font-size: 1.4rem;
+}
+
+.key-cap {
+  padding: .2rem .5rem;
+  font-size: .8rem;
+  font-weight: 500;
+  color: #343a40;
+  background: #f8f9fc;
+  border: 1px solid #d5d8e6;
+  border-bottom-width: 2px;
+  border-radius: .4rem;
+  box-shadow: none;
+}
+
+.stage {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  touch-action: none;
+}
+
+.board-title,
+.zoom-controls {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .25rem .5rem;
+  background: rgba(255, 255, 255, .92);
+  border-radius: 999px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+}
+.board-title { top: 1rem; left: 1rem; padding-right: 1rem; }
+.zoom-controls { bottom: 1rem; right: 1rem; }
+
+.zoom-label {
+  min-width: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: .85rem;
+  font-weight: 500;
+  &:hover { background: #f1f1f7; }
+}
