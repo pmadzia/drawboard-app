@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def reject_input
+  def reject_input(error)
     redirect_back fallback_location: root_path, alert: error.message
   end
 end
