@@ -14,6 +14,11 @@ class StrokesController < ApplicationController
     render json: find_board.strokes.find_by!(uid: params[:id]).data
   end
 
+  def destroy
+    find_board.strokes.where(uid: params[:id]).destroy_all
+    head :no_content
+  end
+
   private
 
   def find_board

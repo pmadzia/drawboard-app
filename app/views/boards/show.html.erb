@@ -1,16 +1,8 @@
-<div class="workspace" data-controller="board"
+<div class="workspace"
+  data-controller="board"
   data-board-slug-value="<%= @board.to_param %>"
-  data-action="keydown@window->board#pressKey keyup@window->board#releaseKey">
-
-  <aside class="tool-panel">
-    <button type="button" class="tool-btn active" title="Pen">
-      <i class="bi bi-pencil-fill"></i>
-    </button>
-    <button type="button" class="tool-btn mt-auto" data-bs-toggle="modal"
-            data-bs-target="#shortcuts" title="Controls">
-      <i class="bi bi-keyboard"></i>
-    </button>
-  </aside>
+  data-action="keydown.space@window->board#startPanning keyup.space@window->board#stopPanning">
+  <%= render "boards/tool_panel" %>
 
   <div class="stage" data-board-target="stage">
     <canvas data-board-target="canvas"></canvas>

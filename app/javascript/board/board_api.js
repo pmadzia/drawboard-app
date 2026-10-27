@@ -1,4 +1,4 @@
-import { get, post } from "@rails/request.js"
+import { get, post, destroy } from "@rails/request.js"
 
 export default class BoardApi {
   constructor(slug) {
@@ -15,5 +15,9 @@ export default class BoardApi {
 
   async save(uid, data) {
     return post(this.root, { body: { uid, data }, responseKind: "json" })
+  }
+
+  erase(uid) {
+    return destroy(`${this.root}/${uid}`)
   }
 }

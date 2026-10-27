@@ -4,22 +4,20 @@ import Viewport from "../board/viewport"
 import PanTool from "../board/pan_tool"
 import BoardApi from "../board/board_api"
 import Synchronizer from "../board/synchronizer"
-
-const PRESS = { " ": "enable" }
-const RELEASE = { " ": "disable" }
+import Style from "../board/style"
+import Toolbox from "../board/toolbox"
+import { buildTools } from "../board/tools"
 
 export default class extends Controller {
-  static targets = ["stage", "canvas", "zoomLabel"]
+  static targets = ["stage", "canvas", "zoomLabel", "toolButton"]
   static values = { slug: String }
 
   connect() {
-    this.whiteboard = new Whiteboard(this.canvasTarget)
-    this.viewport = new Viewport(this.whiteboard.canvas, (zoom) => this.showZoom(zoom))
-    this.panTool = new PanTool(this.whiteboard.canvas)
-    this.synchronizer = new Synchronizer(
-      this.whiteboard.canvas, new BoardApi(this.slugValue), this.slugValue
-    )
+    const canvas = this.createWhiteboard()
+    this.toolbox = new Toolbox(buildTools(canvas, new Style()), (name) => this.markTool(name))
+    this.synchronizer = new Synchronizer(canvas, new BoardApi(this.slugValue), this.slugValue)
     this.synchronizer.start()
+    this.toolbox.select("pen")
     this.observeStage()
   }
 
@@ -27,6 +25,12 @@ export default class extends Controller {
     this.observer.disconnect()
     this.synchronizer.stop()
     this.whiteboard.dispose()
+  }
+
+  createWhiteboard() {
+    this.whiteboard = new Whiteboard(this.canvasTarget)
+    this.viewport = new Viewport(this.whiteboard.canvas, (zoom) => this.showZoom(zoom))
+    return this.whiteboard.canvas
   }
 
   observeStage() {
@@ -47,12 +51,21 @@ export default class extends Controller {
   zoomOut() { this.viewport.zoomOut() }
   resetView() { this.viewport.reset() }
 
-  pressKey(event) { this.runKey(PRESS, event) }
-  releaseKey(event) { this.runKey(RELEASE, event) }
+  selectTool(event) {
+    this.toolbox.select(event.params.name)
+  }
 
-  runKey(actions, event) {
-    const name = actions[event.key]
-    this.panTool[name]?.()
-    name && event.preventDefault()
+  startPanning(event) {
+    event.preventDefault()
+    this.toolbox.hold("pan")
+  }
+
+  stopPanning() {
+    this.toolbox.release()
+  }
+
+  markTool(name) {
+    this.toolButtonTargets.forEach((el) =>
+      el.classList.toggle("active", el.getAttribute("data-board-name-param") === name))
   }
 }

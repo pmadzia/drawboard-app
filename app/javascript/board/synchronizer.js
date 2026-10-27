@@ -1,7 +1,7 @@
 import { util } from "fabric"
 import { createConsumer } from "@rails/actioncable"
 
-const HANDLERS = { added: "pullStroke" }
+const HANDLERS = { added: "pullStroke", removed: "discard" }
 
 export default class Synchronizer {
   constructor(canvas, api, slug) {
@@ -26,12 +26,23 @@ export default class Synchronizer {
   start() {
     this.subscribe()
     this.canvas.on("path:created", ({ path }) => this.publish(path))
+    this.canvas.on("object:erased", ({ target }) => this.retract(target))
     return this.restore()
   }
 
   stop() {
     this.subscription.unsubscribe()
     this.consumer.disconnect()
+  }
+
+  retract(object) {
+    return this.api.erase(object.uid)
+  }
+
+  discard(uid) {
+    this.canvas.getObjects()
+      .filter((object) => object.uid === uid)
+      .forEach((object) => this.canvas.remove(object))
   }
 
   async restore() {
