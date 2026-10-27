@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   root "sessions#new"
 
   resource :session, only: %i[new create destroy]
-  resources :boards, only: %i[index create show]
+  resources :boards, only: %i[index create show] do
+    resources :strokes, only: %i[index create show]
+  end
 end

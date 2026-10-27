@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_26_131240) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_27_090233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,4 +22,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_26_131240) do
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_boards_on_slug", unique: true
   end
+
+  create_table "strokes", force: :cascade do |t|
+    t.bigint "board_id", null: false
+    t.string "uid", null: false
+    t.jsonb "data", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id", "uid"], name: "index_strokes_on_board_id_and_uid", unique: true
+    t.index ["board_id"], name: "index_strokes_on_board_id"
+  end
+
+  add_foreign_key "strokes", "boards"
 end

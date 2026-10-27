@@ -2,22 +2,30 @@ import { Controller } from "@hotwired/stimulus"
 import Whiteboard from "../board/whiteboard"
 import Viewport from "../board/viewport"
 import PanTool from "../board/pan_tool"
+import BoardApi from "../board/board_api"
+import Synchronizer from "../board/synchronizer"
 
 const PRESS = { " ": "enable" }
 const RELEASE = { " ": "disable" }
 
 export default class extends Controller {
   static targets = ["stage", "canvas", "zoomLabel"]
+  static values = { slug: String }
 
   connect() {
     this.whiteboard = new Whiteboard(this.canvasTarget)
     this.viewport = new Viewport(this.whiteboard.canvas, (zoom) => this.showZoom(zoom))
     this.panTool = new PanTool(this.whiteboard.canvas)
+    this.synchronizer = new Synchronizer(
+      this.whiteboard.canvas, new BoardApi(this.slugValue), this.slugValue
+    )
+    this.synchronizer.start()
     this.observeStage()
   }
 
   disconnect() {
     this.observer.disconnect()
+    this.synchronizer.stop()
     this.whiteboard.dispose()
   }
 

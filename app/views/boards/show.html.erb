@@ -1,4 +1,5 @@
 <div class="workspace" data-controller="board"
+  data-board-slug-value="<%= @board.to_param %>"
   data-action="keydown@window->board#pressKey keyup@window->board#releaseKey">
 
   <aside class="tool-panel">
