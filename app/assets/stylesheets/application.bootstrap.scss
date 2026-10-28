@@ -175,3 +175,28 @@ $brand: #6c5ce7;
   object-fit: contain;
   background: #fff;
 }
+
+.tool-divider {
+  flex-shrink: 0;
+  width: 32px;
+  height: 1px;
+  margin: .25rem 0;
+  background: #e3e5ef;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(2, 20px);
+  gap: .4rem;
+}
+
+.swatch {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .15);
+  &.active { box-shadow: 0 0 0 2px $brand; }
+}

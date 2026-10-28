@@ -10,18 +10,20 @@ import Thumbnailer from "../board/thumbnailer"
 import Exporter from "../board/exporter"
 
 export default class extends Controller {
-  static targets = ["stage", "canvas", "zoomLabel", "toolButton"]
+  static targets = ["stage", "canvas", "zoomLabel", "toolButton", "swatch"]
   static values = { slug: String, title: String }
 
   connect() {
     const canvas = this.createWhiteboard()
     this.thumbnailer = new Thumbnailer(canvas, this.slugValue)
     this.exporter = new Exporter(canvas)
-    this.toolbox = new Toolbox(buildTools(canvas, new Style()), (name) => this.markTool(name))
+    this.style = new Style()
+    this.toolbox = new Toolbox(buildTools(canvas, this.style), (name) => this.markTool(name))
     this.synchronizer = new Synchronizer(canvas, new BoardApi(this.slugValue), this.slugValue)
     this.synchronizer.start()
     this.toolbox.select("pen")
     this.observeStage()
+    this.markColor()
   }
 
   disconnect() {
@@ -75,5 +77,16 @@ export default class extends Controller {
 
   exportJpeg() {
     return this.exporter.downloadJpeg(`${this.titleValue}.jpg`)
+  }
+
+  chooseColor(event) {
+    this.style.color = event.params.color
+    this.toolbox.refresh()
+    this.markColor()
+  }
+
+  markColor() {
+    this.swatchTargets.forEach((el) =>
+      el.classList.toggle("active", el.getAttribute("data-board-color-param") === this.style.color))
   }
 }

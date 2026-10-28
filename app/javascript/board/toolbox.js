@@ -22,4 +22,8 @@ export default class Toolbox {
     this.previous && this.select(this.previous)
     this.previous = null
   }
+
+  refresh() {
+    this.tools[this.name].refresh()
+  }
 }

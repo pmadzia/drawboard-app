@@ -1,5 +1,14 @@
 <aside class="tool-panel">
   <%= render partial: "boards/tool", collection: Toolkit::TOOLS %>
+  <div class="tool-divider"></div>
+  <div class="swatches">
+    <% Toolkit::COLORS.each do |color| %>
+      <button type="button" class="swatch" style="--swatch: <%= color.hex %>"
+              title="<%= color.name %>" data-board-target="swatch"
+              data-board-color-param="<%= color.hex %>"
+              data-action="board#chooseColor"></button>
+    <% end %>
+  </div>
   <button type="button" class="tool-btn mt-auto" data-bs-toggle="modal"
           data-bs-target="#shortcuts" title="Controls">
     <i class="bi bi-keyboard"></i>

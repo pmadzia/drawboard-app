@@ -6,6 +6,7 @@ export default class Tool {
   }
 
   activate() {}
+  refresh() {}
 
   deactivate() {
     this.listeners.forEach((stop) => stop())
