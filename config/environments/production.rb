@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_cable.allowed_request_origins = [ ENV.fetch("RENDER_EXTERNAL_URL") ]
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
