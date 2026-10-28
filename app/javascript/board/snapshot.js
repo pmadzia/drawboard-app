@@ -18,7 +18,7 @@ export default class Snapshot {
   }
 
   createThumbnail() {
-    return this.render({ maxSide: 320, padding: 16, quality: 0.8 })
+    return this.render({ maxSide: 320, padding: 16, quality: 0.9 })
   }
 
   createExport() {
