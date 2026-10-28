@@ -1,12 +1,17 @@
 <div class="workspace"
   data-controller="board"
   data-board-slug-value="<%= @board.to_param %>"
+  data-board-title-value="<%= @board.name %>"
   data-action="keydown.space@window->board#startPanning keyup.space@window->board#stopPanning">
   <%= render "boards/tool_panel" %>
 
   <div class="stage" data-board-target="stage">
     <canvas data-board-target="canvas"></canvas>
     <div class="board-user">
+      <button type="button" class="btn-icon" title="Export as JPEG"
+              data-action="board#exportJpeg">
+        <i class="bi bi-download"></i>
+      </button>
       <%= render_name_badge %>
     </div>
     <div class="board-title">

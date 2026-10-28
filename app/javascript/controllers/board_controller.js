@@ -1,19 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 import Whiteboard from "../board/whiteboard"
 import Viewport from "../board/viewport"
-import PanTool from "../board/pan_tool"
 import BoardApi from "../board/board_api"
 import Synchronizer from "../board/synchronizer"
 import Style from "../board/style"
 import Toolbox from "../board/toolbox"
 import { buildTools } from "../board/tools"
+import Thumbnailer from "../board/thumbnailer"
+import Exporter from "../board/exporter"
 
 export default class extends Controller {
   static targets = ["stage", "canvas", "zoomLabel", "toolButton"]
-  static values = { slug: String }
+  static values = { slug: String, title: String }
 
   connect() {
     const canvas = this.createWhiteboard()
+    this.thumbnailer = new Thumbnailer(canvas, this.slugValue)
+    this.exporter = new Exporter(canvas)
     this.toolbox = new Toolbox(buildTools(canvas, new Style()), (name) => this.markTool(name))
     this.synchronizer = new Synchronizer(canvas, new BoardApi(this.slugValue), this.slugValue)
     this.synchronizer.start()
@@ -23,6 +26,7 @@ export default class extends Controller {
 
   disconnect() {
     this.observer.disconnect()
+    this.thumbnailer.flush()
     this.synchronizer.stop()
     this.whiteboard.dispose()
   }
@@ -67,5 +71,9 @@ export default class extends Controller {
   markTool(name) {
     this.toolButtonTargets.forEach((el) =>
       el.classList.toggle("active", el.getAttribute("data-board-name-param") === name))
+  }
+
+  exportJpeg() {
+    return this.exporter.downloadJpeg(`${this.titleValue}.jpg`)
   }
 }

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resource :session, only: %i[new create destroy]
   resources :boards, only: %i[index create show] do
+    resource :thumbnail, only: %i[show update]
     resources :strokes, only: %i[index create show destroy]
   end
 end

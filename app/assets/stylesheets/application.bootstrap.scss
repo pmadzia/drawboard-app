@@ -164,3 +164,14 @@ $brand: #6c5ce7;
   font-weight: 500;
   &:hover { background: #f1f1f7; }
 }
+
+.board-thumb { position: relative; overflow: hidden; }
+
+.board-thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+}

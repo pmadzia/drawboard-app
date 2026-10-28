@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   layout "board", only: :show
 
   def index
-    @boards = Board.order(created_at: :desc)
+    @boards = Board.listed
   end
 
   def create

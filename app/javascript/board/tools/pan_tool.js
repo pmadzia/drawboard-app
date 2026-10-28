@@ -1,5 +1,5 @@
 import { Point } from "fabric"
-import Tool from "./tools/tool"
+import Tool from "./tool"
 
 export default class PanTool extends Tool {
   activate() {
